@@ -1,5 +1,9 @@
 package com.shiro.chapter06.test;
 
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,6 +25,7 @@ public class UserRealmTest extends BaseTest {
 
     @Test(expected = IncorrectCredentialsException.class)
     public void testLoginFailWithErrorPassowrd() {
+    	
         login("classpath:shiro.ini", u1.getUsername(), password + "1");
     }
 

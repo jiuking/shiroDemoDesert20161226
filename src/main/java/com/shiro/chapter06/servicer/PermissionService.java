@@ -1,6 +1,6 @@
 package com.shiro.chapter06.servicer;
 
-import org.apache.shiro.authz.Permission;
+import com.shiro.chapter06.entity.Permission;
 
 public interface PermissionService {
 	public Permission createPermission(Permission permission);

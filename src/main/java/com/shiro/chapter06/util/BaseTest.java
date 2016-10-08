@@ -1,10 +1,13 @@
 package com.shiro.chapter06.util;
 
+import com.shiro.chapter06.entity.Permission;
 import com.shiro.chapter06.entity.Role;
 import com.shiro.chapter06.entity.User;
 import com.shiro.chapter06.servicer.PermissionService;
 import com.shiro.chapter06.servicer.RoleService;
 import com.shiro.chapter06.servicer.UserService;
+import com.shiro.chapter06.servicer.impl.PermissionServiceImpl;
+import com.shiro.chapter06.servicer.impl.RoleServiceImpl;
 import com.shiro.chapter06.servicer.impl.UserServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
