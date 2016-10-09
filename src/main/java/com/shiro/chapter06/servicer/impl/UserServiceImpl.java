@@ -2,44 +2,83 @@ package com.shiro.chapter06.servicer.impl;
 
 import java.util.Set;
 
+import com.shiro.chapter06.dao.UserDao;
+import com.shiro.chapter06.dao.impl.UserDaoImpl;
 import com.shiro.chapter06.entity.User;
 import com.shiro.chapter06.servicer.UserService;
+import com.shiro.chapter06.util.PasswordHelper;
 
 public class UserServiceImpl implements UserService{
 
-	public User createUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private UserDao userDao = new UserDaoImpl();
+    private PasswordHelper passwordHelper = new PasswordHelper();
 
-	public void changePassword(Long userId, String newPassword) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * 创建用户
+     * @param user
+     */
+    public User createUser(User user) {
+        //加密密码
+        passwordHelper.encryptPassword(user);
+        return userDao.createUser(user);
+    }
 
-	public void correlationRoles(Long userId, Long... rolesIds) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * 修改密码
+     * @param userId
+     * @param newPassword
+     */
+    public void changePassword(Long userId, String newPassword) {
+        User user =userDao.findOne(userId);
+        user.setPassword(newPassword);
+        passwordHelper.encryptPassword(user);
+        userDao.updateUser(user);
+    }
 
-	public void uncorrelationRoles(Long userId, Long... rolesIds) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * 添加用户-角色关系
+     * @param userId
+     * @param roleIds
+     */
+    public void correlationRoles(Long userId, Long... roleIds) {
+        userDao.correlationRoles(userId, roleIds);
+    }
 
-	public User findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public Set<String> findRoles(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * 移除用户-角色关系
+     * @param userId
+     * @param roleIds
+     */
+    public void uncorrelationRoles(Long userId, Long... roleIds) {
+        userDao.uncorrelationRoles(userId, roleIds);
+    }
 
-	public Set<String> findPermissions(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * 根据用户名查找用户
+     * @param username
+     * @return
+     */
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
+
+    /**
+     * 根据用户名查找其角色
+     * @param username
+     * @return
+     */
+    public Set<String> findRoles(String username) {
+        return userDao.findRoles(username);
+    }
+
+    /**
+     * 根据用户名查找其权限
+     * @param username
+     * @return
+     */
+    public Set<String> findPermissions(String username) {
+        return userDao.findPermissions(username);
+    }
 
 }
